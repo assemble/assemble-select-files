@@ -1,0 +1,40 @@
+{
+  "name": "assemble-select-files",
+  "description": "",
+  "version": "0.1.0",
+  "homepage": "https://github.com/assemble/assemble-select-files",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "assemble/assemble-select-files",
+  "bugs": {
+    "url": "https://github.com/assemble/assemble-select-files/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp-format-md": "^0.1.9",
+    "mocha": "^2.4.5"
+  },
+  "keywords": [],
+  "verb": {
+    "layout": "default",
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": []
+    },
+    "reflinks": [
+      "verb"
+    ]
+  }
+}
