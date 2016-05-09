@@ -1,22 +1,67 @@
-/*!
- * assemble-select-files (https://github.com/assemble/assemble-select-files)
- *
- * Copyright (c) 2016, Jon Schlinkert.
- * Licensed under the MIT License.
- */
-
 'use strict';
 
-var debug = require('debug')('assemble-select-files');
+var path = require('path');
+var extend = require('extend-shallow');
+var select = require('assemble-select-views');
+var loader = require('assemble-loader');
 
 module.exports = function(config) {
-  return function(app) {
-    if (this.isRegistered('assemble-select-files')) return;
-    debug('initializing "%s", from "%s"', __filename, module.parent.id);
+  config = config || {};
 
-    this.define('files', function() {
-      debug('running files');
-      
+  return function plugin(app) {
+    if (!isValidInstance(this)) return;
+
+
+    this.use(select());
+    this.use(loader());
+
+    this.define('selectFiles', function(patterns, options, cb) {
+      if (typeof options === 'function') {
+        cb = options;
+        options = {};
+      }
+
+      var name = 'select_file';
+      var opts = extend({cwd: this.cwd}, this.options, config, options);
+      opts.dest = path.resolve(opts.cwd, opts.dest || '');
+
+      if (typeof opts.renameKey !== 'function') {
+        opts.renameKey = function(key, file) {
+          return file ? file.basename : path.basename(key);
+        };
+      }
+
+      // create a temporary view collection
+      this.create(name, opts);
+      this[name].load(patterns, opts);
+
+      if (typeof opts.selectFiles !== 'undefined') {
+        opts.selectViews = opts.selectFiles;
+      }
+
+      return this.selectViews(name, opts, function(err, views) {
+        if (err) return cb(err);
+
+        // clean up temporary collection
+        app.del('views.' + name);
+        app.del(name);
+
+        // pass rendered views to callback
+        cb(null, views);
+      });
     });
+
+    return plugin;
   };
 };
+
+function isValidInstance(app) {
+  if (!app.isApp && !app.isGenerator && !app.isViews) {
+    return false;
+  }
+  if (app.isRegistered('assemble-select-files')) {
+    return false;
+  }
+  return true;
+}
+
