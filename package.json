@@ -42,11 +42,16 @@
     "select"
   ],
   "verb": {
+    "toc": false,
     "layout": "default",
+    "tasks": [
+      "readme"
+    ],
     "plugins": [
       "gulp-format-md"
     ],
     "related": {
+      "highlight": "assemble-select-views",
       "list": [
         "assemble",
         "templates",
@@ -56,6 +61,9 @@
     },
     "reflinks": [
       "verb"
-    ]
+    ],
+    "lint": {
+      "reflinks": true
+    }
   }
 }
