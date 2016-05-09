@@ -1,6 +1,6 @@
 {
   "name": "assemble-select-files",
-  "description": "",
+  "description": "Assemble plugin that adds a `.selectFiles` method to the instance, for reading in a glob of files and prompting the user to select the files they want to write to the file system.",
   "version": "0.1.0",
   "homepage": "https://github.com/assemble/assemble-select-files",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
@@ -19,19 +19,40 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "assemble-select-views": "^0.1.5",
+    "extend-shallow": "^2.0.1"
+  },
   "devDependencies": {
+    "assemble": "^0.11.0",
+    "assemble-core": "^0.17.2",
+    "assemble-loader": "^0.4.0",
+    "base-fs-conflicts": "^0.1.6",
+    "base-fs-rename": "^0.1.2",
+    "base-questions": "^0.6.0",
+    "delete": "^0.3.2",
+    "engine-handlebars": "^0.8.0",
+    "fs-exists-sync": "^0.1.0",
     "gulp-format-md": "^0.1.9",
     "mocha": "^2.4.5"
   },
-  "keywords": [],
+  "keywords": [
+    "assemble",
+    "files",
+    "select"
+  ],
   "verb": {
     "layout": "default",
     "plugins": [
       "gulp-format-md"
     ],
     "related": {
-      "list": []
+      "list": [
+        "assemble",
+        "templates",
+        "assemble-select-views",
+        "generate"
+      ]
     },
     "reflinks": [
       "verb"
