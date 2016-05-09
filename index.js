@@ -22,13 +22,19 @@ module.exports = function(config) {
       }
 
       var name = 'select_file';
-      var opts = extend({cwd: this.cwd}, this.options, config, options);
+      var defaults = {cwd: this.cwd, message: 'Which files to you want to render?'};
+      var opts = extend(defaults, this.options, config, options);
       opts.dest = path.resolve(opts.cwd, opts.dest || '');
 
       if (typeof opts.renameKey !== 'function') {
         opts.renameKey = function(key, file) {
           return file ? file.basename : path.basename(key);
         };
+      }
+
+      if (typeof this.question !== 'function') {
+        cb(new Error('expected the base-questions plugin to be registered'));
+        return;
       }
 
       // create a temporary view collection
